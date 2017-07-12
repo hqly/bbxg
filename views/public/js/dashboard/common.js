@@ -26,21 +26,24 @@
       $('.aside>.profile').html(htmlStr); //渲染模板
     }
 
-    //退出功能
-    $('#logoutBtn').on('click',function (){
-           // alert(123);
-        $.ajax({
-          url:'/api/logout',
-          type:'post',
-          success:function (info){
-            if(info.code ==200){
-              alert('退出成功');
-              //退出成功之跳转到登陆页面
-              location.href = '/login';
+          //退出功能
+          $('#logoutBtn').on('click',function (){
+          // alert(123);
+          $.ajax({
+            url:'/api/logout',
+            type:'post',
+            success:function (info){
+              if(info.code ==200){
+                alert('退出成功');
+                //退出成功之跳转到登陆页面
+                location.href = '/login';
+              }
             }
-          }
         })
     })
 
-    // e10adc3949ba59abbe56e057f20f883e
+    //侧边栏的交互功能
+    $('.navs a+ul').prev().on('click',function (){
+        $(this).next().slideToggle();
+    })
 	});
