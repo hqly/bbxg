@@ -12,10 +12,15 @@ require.config({
 //      'common':'js/common'
     'common':'js/dashboard/common',
     'login':'js/dashboard/login',
-    'form':'assets/jquery-form/jquery.form'
+    'form':'assets/jquery-form/jquery.form',
+    'datepicker':'assets/bootstrap-datepicker/js/bootstrap-datepicker',
+    'datepickerzh':'assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min'
   },
   shim:{
     'bootstrap':{
+      deps:['jquery']
+    },
+    'datepickerzh':{
       deps:['jquery']
     }
   }
