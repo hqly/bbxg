@@ -12,6 +12,11 @@ require.config({
 //      'common':'js/common'
     'common':'js/dashboard/common',
     'login':'js/dashboard/login'
+  },
+  shim:{
+    'bootstrap':{
+      deps:['jquery']
+    }
   }
 });
 require(['common']);
