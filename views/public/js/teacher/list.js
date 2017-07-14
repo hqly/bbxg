@@ -38,4 +38,34 @@ define(['jquery','template','bootstrap'],function ($,template,bt){
         }
       })
   })
+
+    // 启用或者注销功能
+   $('#tc_list_tBody').on('click','a.btnHandle',function (){
+          // alert(123);
+        // 向服务器发送ajax请求，会改变当前状态
+     var id = $(this).parent().attr('data-id');
+      // var that =    $(this);
+     var _this = $(this);
+     $.ajax({
+       url: '/api/teacher/handle',
+       type:'post',
+       data:{
+         tc_id:id,
+         tc_status:$(this).attr('data-status')
+       },
+       success:function (info){
+         _this.attr('data-status',info.result.tc_status);//将服务器返回来的状态码数据更新一下
+          if(info.code==200){
+            //当状态为0的时候，是一个启用的状态 ，但是按钮的文字 显示的是注销，当status为1的时候，是一个注销的状态，但是按钮显示的文字是启用
+            // alert('修改成功');
+            if(info.result.tc_status==0){
+              _this.text('注 销');
+            }else {
+              _this.text('启 用');
+            }
+
+          }
+       }
+     })
+   })
 });
