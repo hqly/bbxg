@@ -15,37 +15,64 @@ define(['jquery','template','form'],function ($,template,form){
      // console.log(temp);
     obj[temp[0]] = temp[1];
   }
-
-    //根据当前的id给服务器发送ajax请求，获取当前id下面的讲师的信息
-    $.ajax({
-      url:'/api/teacher/edit',
-      type:'get',
-      data:{tc_id:obj.tc_id},
-      success:function (info){
-        info.result.title='讲师编辑';
-        info.result.saveBtnText = '保存';
-         if(info.code == 200){
-           // 要渲染页面模板
-           var htmlStr = template('tc_manager_tpl',info.result);
-           $('.teacher').html(htmlStr);
-         }
-      }
-    });
-
-  // 单击保存按钮 ，将保存后的信息，发送给服务器，保存在数据库里面
-    $('.teacher').on('click','.btnSave',function (){
-
-      $('form').ajaxSubmit({
-        //使用此种方式提交 的好处是，可以把表单里面的一切信息都自动的提交给服务器
-        url:'/api/teacher/update',
-        type:'post',
+  var id = obj.tc_id;
+    if(id){  // 如果不是boolean  会默认的调用 Boolean()
+      //根据当前的id给服务器发送ajax请求，获取当前id下面的讲师的信息
+      $.ajax({
+        url:'/api/teacher/edit',
+        type:'get',
+        data:{tc_id:obj.tc_id},
         success:function (info){
+          info.result.title='讲师编辑';
+          info.result.saveBtnText = '保存';
+          if(info.code == 200){
+            // 要渲染页面模板
+            var htmlStr = template('tc_manager_tpl',info.result);
+            $('.teacher').html(htmlStr);
+          }
+        }
+      });
+
+      // 单击保存按钮 ，将保存后的信息，发送给服务器，保存在数据库里面
+      $('.teacher').on('click','.btnSave',function (){
+
+        $('form').ajaxSubmit({
+          //使用此种方式提交 的好处是，可以把表单里面的一切信息都自动的提交给服务器
+          url:'/api/teacher/update',
+          type:'post',
+          success:function (info){
             if(info.code==200){
               alert('保存成功,即将跳转到列表页...');
               location.href='/teacher/list';
             }
-        }
+          }
+        });
+        return false;
       });
-      return false;
-    });
+    }else {
+      // 添加的功能    跳转过来之后，首先也得渲染模板
+      var htmlStr = template('tc_manager_tpl',{
+         title:'讲师添加',
+        saveBtnText:'添加',
+        tc_gender:0   //添加一个默认的值
+      });
+      $('.teacher').html(htmlStr);
+
+    //  单击按钮 ，要把表单上的数据提交到数据库
+
+     $('.teacher').on('click','.btnSave',function (){
+       $('form').ajaxSubmit({
+         url:'/api/teacher/add',
+         type:'post',
+         success:function (info){
+           if(info.code==200){
+             alert('添加讲师成功');
+             location.href='/teacher/list';
+           }
+         }
+       })//ajaxSubmit
+       return false;
+     })//on
+    }//else
+
 })
