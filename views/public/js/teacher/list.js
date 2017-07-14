@@ -19,7 +19,7 @@ define(['jquery','template','bootstrap'],function ($,template,bt){
     // $('#check-info').on('click',function (){
   //  模板里面的元素，相当于是动态创建出来的元素，直接注册事件不起作用
     //        alert(123);
-    // })
+    // })2
 
   $('#tc_list_tBody').on('click','a.check-info',function (){
          // alert(123);
@@ -40,6 +40,13 @@ define(['jquery','template','bootstrap'],function ($,template,bt){
   })
 
     // 启用或者注销功能
+  /**
+   * 思路：
+   * 1. 当单击按钮时候，要向服务器发送数据，一个是id，一个是当前按钮的status状态
+   * 2. 发送成功之后，要根据服务器的返回数据，修改当前按钮的显示信息
+   * 3. 也就是原来显示启用的改成注销，原来注销的要改成显示
+   * 4. 同时要更新当前的按钮的status状态 ，以便于下一次的提交更改
+   */
    $('#tc_list_tBody').on('click','a.btnHandle',function (){
           // alert(123);
         // 向服务器发送ajax请求，会改变当前状态

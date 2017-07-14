@@ -11,7 +11,8 @@ require.config({
     'template':'assets/artTemplate/template',
 //      'common':'js/common'
     'common':'js/dashboard/common',
-    'login':'js/dashboard/login'
+    'login':'js/dashboard/login',
+    'form':'assets/jquery-form/jquery.form'
   },
   shim:{
     'bootstrap':{
