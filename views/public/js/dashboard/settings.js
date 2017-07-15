@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/7/15.
  */
-define(['jquery','template','uploadify','datepicker','datepickerzh','region'],function ($,template,uploadify){
+define(['jquery','template','ckeditor','uploadify','datepicker','datepickerzh','region','form'],function ($,template,CKEDITOR,uploadify){
 
   //1.向服务器发送请求， 渲染模板
   $.ajax({
@@ -40,9 +40,37 @@ define(['jquery','template','uploadify','datepicker','datepickerzh','region'],fu
           $('#region').region({
             url:'/views/public/assets/jquery-region/region.json'
           });
-       }
-    }
+          //5. 富文本编辑器的使用
+         CKEDITOR.replace('introduce',{
+           toolbarGroups:[
+             { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+             { name: 'links' },
+             { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
+             { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+             { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] }
+           ]
+         });//CKEDITOR
+
+       }//if
+    }//success
   });
 
 
+  // 给按钮注册事件，保存信息
+
+  $('.settings').on('click','.saveBtn',function (){
+        //先更新一下当前富文本编辑器的内容
+      $("#introduce").val(CKEDITOR.instances.introduce.getData());
+         $('form').ajaxSubmit({
+           url:'/api/teacher/modify',
+           type:'post',
+           success:function (info){
+              if(info.code==200){
+                alert('保存成功...');
+                location.href='/settings';
+              }
+           }
+         })
+         return false;//阻止默认刷新行为
+  })
 })

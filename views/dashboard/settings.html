@@ -27,6 +27,7 @@
 <?php include '/views/common/script.html'?>
 <script type="text/template" id="profile_tpl">
   <form action="" class="form-horizontal">
+    <input type="hidden" name="tc_id" value="{{tc_id}}">
     <div class="form-group">
       <label for="" class="col-md-3 control-label">姓名</label>
       <div class="col-md-5">
@@ -68,14 +69,14 @@
     </div>
     <div class="form-group">
       <label for="" class="col-md-3 control-label">籍贯</label>
-      <div class="col-md-5" id="region">
-        <select name="" id="p" class="form-control input-sm">
+      <div class="col-md-5" id="region" >
+        <select name="tc_province" id="p" data-id="{{tc_province}}" class="form-control input-sm">
           <option value="">请选择省</option>
         </select>
-        <select name="" id="c" class="form-control input-sm">
+        <select name="tc_city" id="c" data-id="{{tc_city}}" class="form-control input-sm">
           <option value="">请选择市</option>
         </select>
-        <select name="" id="d" class="form-control input-sm">
+        <select name="tc_district" id="d" data-id="{{tc_district}}" class="form-control input-sm">
           <option value="">请选择区县</option>
         </select>
       </div>
@@ -101,14 +102,16 @@
     <div class="form-group">
       <label for="" class="col-md-3 control-label">个人介绍</label>
       <div class="col-md-5 ckeditor">
-        <textarea name="" rows="15" class="form-control input-sm">{{tc_introduce}}</textarea>
+        <textarea name="tc_introduce" rows="15" id="introduce" class="form-control input-sm">{{tc_introduce}}</textarea>
       </div>
     </div>
     <div class="form-group">
       <div class="col-md-8">
-        <a href="./course_add_step2.html" class="btn btn-success btn-sm pull-right">保 存</a>
-        <a href="./repass.html" class="btn btn-link btn-sm pull-right">更改密码？</a>
+        <button class="btn btn-success btn-sm pull-right saveBtn">保 存</button>
       </div>
+      
+      
+      
     </div>
   </form>
 </script>
@@ -120,7 +123,10 @@
    * 3. 要向服务器发送请求，把当前登陆账号的信息渲染到当前页面上
    * 4. 在libs/config.js文件当中添加uploadify路径  (文件上传插件)
    * 5. 在settings.js 模块当中调用插件，并设置属性
-   * 6.
+   * 6. 添加日期插件
+   * 7. 添加省市区三级联动插件
+   * 8. 添加富文本编辑器插件
+   * 9. 给按钮注册事件，提交当前修改的信息
    */
 
   require(['js/dashboard/settings']);
