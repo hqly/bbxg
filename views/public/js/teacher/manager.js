@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/7/14.
  */
-define(['jquery','template','form','datepicker'],function ($,template,form,dp){
+define(['jquery','template','form','datepicker','datepickerzh'],function ($,template,form,dp,dpzh){
        // alert('调用成功');
   // 获取当前url中的tc_id
   var search = location.search;//  ?tc_id=14&name=zhangsan&age=20
@@ -64,6 +64,11 @@ define(['jquery','template','form','datepicker'],function ($,template,form,dp){
       });
       $('.teacher').html(htmlStr);
 
+      //一定要在模板 渲染完毕来添加日期插件
+      $('input[name=tc_join_date]').datepicker({
+        format:'yyyy/mm/dd',      //让日期插件的格式 变成年月日的方式
+        language:'zh-CN'
+      });
     //  单击按钮 ，要把表单上的数据提交到数据库
 
      $('.teacher').on('click','.btnSave',function (){
