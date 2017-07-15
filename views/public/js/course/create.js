@@ -11,7 +11,7 @@ define(['jquery','form'],function ($){
       success:function (info){
         if(info.code==200){
           alert('提交成功');
-          location.href='/course/basic';
+          location.href='/course/basic?cs_id='+info.result.cs_id;
         }
       }//success
     })//ajaxSubmit
