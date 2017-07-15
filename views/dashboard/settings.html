@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>学IT - 后台管理系统</title>
   <?php include '/views/common/css.html'?>
+  <!--<link rel="stylesheet" href="/views/public/assets/uploadify/uploadify.css">-->
 </head>
 <body>
 
@@ -123,6 +124,9 @@
    * 1. 当单击个人中心的时候，要进行页面的跳转  在common文件夹的head.html文件中，修改个人中心的链接跳转
    * 2. 修改页面的文件引入信息
    * 3. 要向服务器发送请求，把当前登陆账号的信息渲染到当前页面上
+   * 4. 在libs/config.js文件当中添加uploadify路径  (文件上传插件)
+   * 5. 在settings.js 模块当中调用插件，并设置属性
+   * 6.
    */
 
   require(['js/dashboard/settings']);

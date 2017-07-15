@@ -14,13 +14,17 @@ require.config({
     'login':'js/dashboard/login',
     'form':'assets/jquery-form/jquery.form',
     'datepicker':'assets/bootstrap-datepicker/js/bootstrap-datepicker',
-    'datepickerzh':'assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min'
+    'datepickerzh':'assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min',
+    'uploadify':'assets/uploadify/jquery.uploadify'
   },
   shim:{
     'bootstrap':{
       deps:['jquery']
     },
     'datepickerzh':{
+      deps:['jquery']
+    },
+    'uploadify':{
       deps:['jquery']
     }
   }
