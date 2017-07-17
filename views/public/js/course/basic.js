@@ -35,6 +35,6 @@ define(['utils','jquery','template','ckeditor','form'],function (obj,$,template,
          }
       }
     })
-         return false;
+      return false; //阻止默认的刷新行为
   })
 })

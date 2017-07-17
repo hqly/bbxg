@@ -41,19 +41,19 @@
         <!-- 步聚 -->
         <ul class="forwards list-unstyled">
             <li>
-                <a href="/course/basic" class="active">
+                <a href="/course/basic?cs_id={{cs_id}}" class="active">
                     <b>1</b>
                     基本信息
                 </a>
             </li>
             <li>
-                <a href="/course/pic">
+                <a href="/course/pic?cs_id={{cs_id}}">
                     <b>2</b>
                     课程图片
                 </a>
             </li>
             <li>
-                <a href="./course_add_step3.html">
+                <a href="/course/lesson?cs_id={{cs_id}}">
                     <b>3</b>
                     课时管理
                 </a>
@@ -116,7 +116,14 @@
         </div>
     </script>
     <script>
-        require(['js/course/basic']);//调用模块
+      /**
+       * 思路：
+       * 1. 跳转到当前页面的时候，要获取地址栏中的id
+       * 2. 根据id去服务器获取数据
+       * 3. 将数据渲染到页面上
+       * 4. 数据填写完毕后，当单击按钮的时候，向服务器提交数据
+       */
+      require(['js/course/basic']);//调用模块
     </script>
 </body>
 </html>
