@@ -3,6 +3,7 @@
  */
 define(['utils','jquery','template','uploadify','jcrop'],function (utils,$,template,uploadify){
   var id = utils.queryString().cs_id;
+  var jcrop_obj = null;// 先定义一个缩略图的空对象
     $.ajax({
       url:'/api/course/picture',
       type:'get',
@@ -42,18 +43,43 @@ define(['utils','jquery','template','uploadify','jcrop'],function (utils,$,templ
           // 给裁切图片按钮 注册事件
           // $('#cropbtn').on('click')
           $('.steps').on('click','#cropBtn',function (){
-                $('.preview img').Jcrop({
-                  aspectRatio: 2,  //设置宽高的比例
-                  setSelect: [20,20,240,120],
-                  boxWidth:400
-                },function (){
-                  // 这里面的这些数据是用来设置缩略图的
-                  var jcrop_api = this;  //this就是当前的缩略图对象
-                  thumbnail = this.initComponent('Thumbnailer', { width: 240, height: 120 });
-                  //将缩略图追加到左上角的盒子当中
-                  // $('.jcrop-thumb').appendTo($('.thumb'));
-                  $('.thumb').append($('.jcrop-thumb'));
-                });
+            if($(this).attr('data-status')!='save'){   //
+              //如果没有data-status这个自定义 属性或是属性值不为save的话，则说明这是第一次单击按钮
+              $(this).attr('data-status','save').text('保 存');
+              $('.preview img').Jcrop({
+                aspectRatio: 2,  //设置宽高的比例
+                setSelect: [20,20,240,120],
+                boxWidth:400
+              },function (){
+                // 这里面的这些数据是用来设置缩略图的
+                jcrop_obj = this;  //this就是当前的缩略图对象
+                jcrop_obj.initComponent('Thumbnailer', { width: 240, height: 120 });
+                //将缩略图追加到左上角的盒子当中
+                // $('.jcrop-thumb').appendTo($('.thumb'));
+                $('.thumb').append($('.jcrop-thumb'));
+              });
+            }else {
+              // 到了这里面执行代码 的时候，就表示现在是一个保存的功能
+               var result = jcrop_obj.getSelection();
+              $.ajax({
+                url:'/api/course/update/picture',
+                type:'post',
+                data:{
+                  cs_id:id,
+                  x: result.x,
+                  y:result.y,
+                  w:result.w,
+                  h:result.h
+                },
+                success:function (info){
+                   if(info.code ==200){
+                     alert('图片裁切之后保存成功。。。');
+                     location.href='/course/lesson?cs_id='+info.result.cs_id;
+                  }
+                }
+              })
+            }
+
           })
         }
       }
