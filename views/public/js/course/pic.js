@@ -42,7 +42,18 @@ define(['utils','jquery','template','uploadify','jcrop'],function (utils,$,templ
           // 给裁切图片按钮 注册事件
           // $('#cropbtn').on('click')
           $('.steps').on('click','#cropBtn',function (){
-                $('.preview img').Jcrop();
+                $('.preview img').Jcrop({
+                  aspectRatio: 2,  //设置宽高的比例
+                  setSelect: [20,20,240,120],
+                  boxWidth:400
+                },function (){
+                  // 这里面的这些数据是用来设置缩略图的
+                  var jcrop_api = this;  //this就是当前的缩略图对象
+                  thumbnail = this.initComponent('Thumbnailer', { width: 240, height: 120 });
+                  //将缩略图追加到左上角的盒子当中
+                  // $('.jcrop-thumb').appendTo($('.thumb'));
+                  $('.thumb').append($('.jcrop-thumb'));
+                });
           })
         }
       }
